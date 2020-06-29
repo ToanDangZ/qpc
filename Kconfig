@@ -44,6 +44,37 @@ menu "QP Embedded Framework"
           Max number of events in a large memory pool
     endmenu #"Event Memory Pool"
 
+    menu "TX/RX Buffer and Stack Size"
+      visible if QP_ENABLED
+      config QPC_QSPY_TX_SIZE
+        int "QSPY TX Buffer Size"
+        depends on QP_ENABLED
+        range 16 512
+        default 512
+        help
+          QSPY TX Buffer Size
+      config QPC_QSPY_RX_SIZE
+        int "QSPY RX Buffer Size"
+        depends on QP_ENABLED
+        range 16 512
+        default 256
+        help
+          QSPY RX Buffer Size
+      config QPC_QSPY_TX_STACK_SIZE
+        int "QSPY TX Task Stack Size"
+        depends on QP_ENABLED
+        range 1024 2048
+        default 2048
+        help
+          QSPY TX Stask Stack Size
+      config QPC_QSPY_RX_STACK_SIZE
+        int "QSPY RX Task Stack Size"
+        depends on QP_ENABLED
+        range 1024 2048
+        default 2048
+        help
+          QSPY RX Stask Stack Size
+    endmenu #"TX/RX Buffer and Stack Size"
   endmenu #QPC Configuration
 
 endmenu
