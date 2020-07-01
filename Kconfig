@@ -44,8 +44,54 @@ menu "QP Embedded Framework"
           Max number of events in a large memory pool
     endmenu #"Event Memory Pool"
 
-    menu "TX/RX Buffer and Stack Size"
+    choice QPC_QSPY_PHY_INTERFACE
+      prompt "QSPY Interface"
+      default QPC_QSPY_PHY_UART
+
+      config QPC_QSPY_PHY_UART
+        bool "Via UART Interface"
+
+      config CONFIG_QPC_QSPY_PHY_BT_SPP
+        bool "Via Bluetooth"
+  endchoice
+
+  choice QPC_QSPY_UART_PORT
+    depends on QPC_QSPY_PHY_UART
+    prompt "UART"
+    default QPC_QSPY_UART1
+    help 
+      Select the uart port number used by the QSPY
+
+    config QPC_QSPY_UART1
+      bool "UART 1"
+    
+    config QPC_QSPY_UART2
+      bool "UART 2"
+    
+  endchoice
+
+  menu "UART pin map"
+    depends on QPC_QSPY_PHY_UART
+    config QPC_QSPY_TX_PIN
+      int "QPC QSPY TX"
+      range 0 39
+      default 0
+    config QPC_QSPY_RX_PIN
+      int "QPC QSPY RX"
+      range 0 39 
+      default 27
+  endmenu #"UART pin map"
+
+  menu "QSPY Stack Size"
       visible if QP_ENABLED
+      config QPC_QSPY_STACK_SIZE
+        int "QSPY Task Stack Size"
+        depends on QP_ENABLED
+        range 1024 2048
+        default 2048
+        help
+          QSPY Stask Stack Size
+
       config QPC_QSPY_TX_SIZE
         int "QSPY TX Buffer Size"
         depends on QP_ENABLED
@@ -60,21 +106,7 @@ menu "QP Embedded Framework"
         default 256
         help
           QSPY RX Buffer Size
-      config QPC_QSPY_TX_STACK_SIZE
-        int "QSPY TX Task Stack Size"
-        depends on QP_ENABLED
-        range 1024 2048
-        default 2048
-        help
-          QSPY TX Stask Stack Size
-      config QPC_QSPY_RX_STACK_SIZE
-        int "QSPY RX Task Stack Size"
-        depends on QP_ENABLED
-        range 1024 2048
-        default 2048
-        help
-          QSPY RX Stask Stack Size
-    endmenu #"TX/RX Buffer and Stack Size"
-  endmenu #QPC Configuration
+  endmenu #"QSPY Stack Size"
+endmenu #QPC Configuration
 
 endmenu
