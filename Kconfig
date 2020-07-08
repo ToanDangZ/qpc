@@ -51,8 +51,11 @@ menu "QP Embedded Framework"
       config QPC_QSPY_PHY_UART
         bool "Via UART Interface"
 
-      config CONFIG_QPC_QSPY_PHY_BT_SPP
+      config QPC_QSPY_PHY_BT_SPP
         bool "Via Bluetooth"
+
+      config QPC_QSPY_PHY_WIFI
+        bool "Via Wifi"
   endchoice
 
   choice QPC_QSPY_UART_PORT
